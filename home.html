@@ -99,7 +99,7 @@
    		inner_html += '<div class="card-body">';
  		inner_html += '<h5 class="card-title">'+ data.name + '</h5>';
  		inner_html += '<p class="card-text">'+ data.cover +'</p>';
-		inner_html += '<a href="music-player.html" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);" onclick="playsong('+data.song_id+')"> Play</a>';
+		inner_html += '<a href="music-player.html?id='+data.song_id+'" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);" onclick="playsong('+data.song_id+')"> Play</a>';
 		inner_html += '<a href="#" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);" onclick="addtoplaylist('+data.song_id+')">+ Add to My list</a>';
 		inner_html += '</div>';
 		inner_html += '</div>';

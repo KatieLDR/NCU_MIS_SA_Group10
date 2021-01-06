@@ -19,7 +19,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
  * Servlet implementation class UploadServlet
  */
-@WebServlet("/FileUploadHandler")
+//@WebServlet("/FileUploadHandler")
 public class FileUploadHandler extends HttpServlet {
     private static final long serialVersionUID = 1L;
      

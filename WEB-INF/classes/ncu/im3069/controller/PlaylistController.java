@@ -10,7 +10,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet("/api/playlist.do")
+//@WebServlet("/api/playlist.do")
 public class PlaylistController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

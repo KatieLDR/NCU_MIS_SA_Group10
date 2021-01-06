@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
@@ -18,6 +18,43 @@
     <url-pattern>/NCU_MIS_SA_Group10/FileUploadHandler</url-pattern>
   </servlet-mapping>
 
+    <servlet>
+        <servlet-name>cookie</servlet-name>
+        <servlet-class>ncu.im3069.controller.CookieController</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>cookie</servlet-name>
+        <url-pattern>/api/cookie.do</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>member</servlet-name>
+        <servlet-class>ncu.im3069.controller.MemberController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>member</servlet-name>
+        <url-pattern>/api/member.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>song</servlet-name>
+        <servlet-class>ncu.im3069.controller.SongController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>song</servlet-name>
+        <url-pattern>/api/song.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>playlist</servlet-name>
+        <servlet-class>ncu.im3069.controller.PlaylistController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>playlist</servlet-name>
+        <url-pattern>/api/playlist.do</url-pattern>
+    </servlet-mapping>
 </web-app>

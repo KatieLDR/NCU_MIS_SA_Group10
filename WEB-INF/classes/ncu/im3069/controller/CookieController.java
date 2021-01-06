@@ -13,7 +13,7 @@ import ncu.im3069.tools.JsonReader;
 
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("/api/cookie.do")
+//@WebServlet("/api/cookie.do")
 public class CookieController extends HttpServlet {
 
     /** The Constant serialVersionUID. */
