@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NCU Voice - Upload</title>
+    <link href="statics/css/style.css" rel="stylesheet">
+	<link href="statics/css/upload.css" rel="stylesheet">
+	
+    <!-- Bootstrap CSS   -->
+    <link href="statics/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awsm CSS   -->
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet'></link>  
+
+    <script src="statics/js/jquery-3.4.1.min.js"> </script>
+    
+	<style>
+		.image-preview-wrapper{
+		  display: block;
+		  max-width: 310px;
+		  max-height: 310px;
+		  width: 100%;
+		  border: 2px solid #cccccc;
+		  margin: 0 auto;
+		  position: relative;
+		  cursor: pointer;
+		}
+
+		.spinner-wrapper {
+		  opacity: 0;
+		  margin: 0;
+		  padding: 0;
+		  left: 50%;
+		  top: 50%;
+		  transform: translate(-50%, -50%);
+		}
+
+		.opacity-1 {
+		  opacity: 1;
+		}
+	</style>
+</head>
+
+<body>
+    <!-- TOP BAR   -->
+    <section id="top_bar">
+    <nav class="navbar  navbar-dark bg-dark navbar-expand-sm" id= "nav-main" > 
+        <div class="container-fluid" >
+          	<div style="color: rgb(255, 255, 255);font-size:24px;margin-left: 20px; font-family: fantasy; ">NCUVoice</div>
+          
+          	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            	<span class="navbar-toggler-icon"></span>
+          	</button>
+          	<div class="collapse navbar-collapse" id="navbarSupportedContent"style="margin-left: 50px;">
+            	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              		<li class="nav-item">
+                		<a class="nav-link active" aria-current="page" href="home.html">Home</a>
+              		</li>
+              		<li class="nav-item">
+                		<a class="nav-link active" href="mylist.html">My list</a>
+              		</li>
+             		 <!-- link 到上傳介面   -->
+              		<li class="nav-item">
+                		<a class="nav-link active" aria-current="page" href="upload.html" style="background: rgb(86, 158, 84);"">Upload</a>
+              		</li>
+		            <!-- link 到登入介面   -->
+		            <!-- Member controller   -->
+		            <li class="nav-item">
+		            	<a class="nav-link active" aria-current="page" href="">Log out</a>
+		            </li>
+		           	<!-- link 到結帳介面   -->
+		            <li class="nav-item">
+		            	<a class="nav-link active" href="checkout.html" style="border-radius: 30px;border: 1px solid #ffffff; margin-left: 10px;">Get Premium</a>
+		            </li>
+           		</ul>
+          	</div>
+        </div>
+    </nav>
+    </section>
+    
+    <!-- 上傳介面   -->
+    <section id="upload_form">
+		<form class="form" id="form">
+			<!-- <div style="display:none;"><input type="hidden" name="_method" value="POST"></div> -->
+			<div class="">
+                <label for="song_name">1.歌曲名：</label>
+				<input name="name" type="name" id="song_name" maxlength="10" required="required">
+            </div>
+			<div class="">
+                <label for="song_artist">2.歌手名：</label>
+				<input name="artist" type="artist" id="song_artist" maxlength="10">
+            </div>
+			<div class="">
+                <label for="song_cover">3.翻唱者：</label>
+				<input name="cover" type="cover" id="song_cover" maxlength="10" required="required">
+            </div>
+			<div class="">
+                <label for="song_album">4.專輯名：</label>
+				<input name="album" type="album" id="song_album" maxlength="10">
+            </div>
+			<div class="">
+                <label for="song_genre">5.選擇曲風：</label>
+				<input name="genre" type="radio" id="song_genre" value="jazz">Jazz
+                <input name="genre" type="radio" id="song_genre" value="classical">Classical
+                <input name="genre" type="radio" id="song_genre" value="pop">Pop
+                <input name="genre" type="radio" id="song_genre" value="eletronic">Eletronic
+            </div>
+			<div class="submit">
+				<input type="button" value="SUBMIT" id="submit">
+			<!-- <input type="reset" value="RESET" id="reset"> -->
+			</div>
+		</form>
+		<div class="">
+			<form method="post" action="/NCU_MIS_SA_Group10/FileUploadHandler" enctype="multipart/form-data">
+			<div class="">    
+			    <label for="song_pic">6.歌曲封面：</label>
+			    <input type="file" name="uploadFile" />
+				<br/>
+           		<label for="song_mp4">7.歌曲音檔：</label>
+			    <input type="file" name="uploadFile" />
+			</div>
+			<div class="submit">
+				<input type="submit" value="UPLOAD" />
+			</div>
+			</form>
+		</div>
+	</section>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 處理表單點擊事件
+            var $form = $('#submit');
+            $form.click(function() {
+                submit();
+            });
+	
+	        function submit() {
+	            var name = $('#song_name').val();
+	            var cover = $('#song_cover').val();
+	            var artist = $('#song_artist').val();
+	            var album = $('#song_album').val();
+	            var genre = $("#form input[name='genre']:checked").val();
+	
+	            // 將資料組成JSON格式
+	            var data_object = {
+	                "name" :name,
+	                "cover":cover,
+	                "artist":artist,
+	                "album":album,
+	                "genre":genre
+	            };
+	
+	            // 將JSON格式轉換成字串
+	            var data_string = JSON.stringify(data_object);
+	
+	            // 發出POST的AJAX請求
+	            $.ajax({
+	                type: "POST",
+	                url: "api/song.do",
+	                data: data_string,
+	                crossDomain: true,
+	                cache: false,
+	                dataType: 'json',
+	                timeout: 5000,
+	                success: function (response) {
+	                    if(response.status == 200){
+	                        alert("新增歌曲資料成功");
+	                        alert(genre);
+	                    }
+	                    console.log(response);
+	                },
+	                error: function () {
+	                    alert("無法連線到伺服器！");
+	                }
+	            });
+	        }
+	    });
+	</script>
+      
+</body>
+</html>

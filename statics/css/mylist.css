@@ -1,0 +1,71 @@
+#top_bar{
+  position:fixed;
+  z-index:1;
+  width: 100%;
+  top:0;
+}
+
+
+#song_list{
+  height: 300%;
+  width: 100%;
+  display: flex;
+  margin-right: 3px;
+  margin-top: 50px;
+  align-items: start;
+  justify-content: left;
+  background:rgb(104, 104, 104);
+}
+
+
+table {  
+  font-family: 微軟正黑體; 
+  font-size:16px;
+  width: 100%;
+  text-align:center;
+  border-collapse:collapse;
+} 
+th { 
+ 
+  padding:10px;
+  
+  border-bottom:3px #fff solid;
+  color:#fff;
+} 
+td {
+  border-top:1px #fff solid;
+  border-bottom:1px #fff solid;
+  padding:5px;
+  color:#fff;
+} 
+
+#remove_bt{
+  border: 1px solid #fff;
+  color:#fff;
+  background-color:rgb(104, 104, 104);
+  border-radius: 30px;
+}
+
+#remove_bt:hover {
+  background-color: #3e8e41;
+  color:#fff;
+}
+
+a:link{
+  text-decoration:none;
+  color:#ffffff;
+  }
+  a:visited {
+  text-decoration:none;
+  color:#ffffff;
+  }
+  a:hover {
+  text-decoration:underline;
+  background-color:#116e11;
+  color:rgb(255, 255, 255);
+  }
+  a:active {
+  text-decoration:none;
+  background-color:gray;
+  color:#fafafa;
+  }

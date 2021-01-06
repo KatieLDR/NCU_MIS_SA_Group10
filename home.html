@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NCU Voice - Home</title>
+    <link href="statics/css/style.css" rel="stylesheet">
+	<link href="statics/css/home.css" rel="stylesheet">
+    <!-- Bootstrap CSS   -->
+    <link href="statics/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <script src="statics/js/jquery-3.4.1.min.js"> </script>
+</head>
+
+<body>
+    <!-- TOP BAR   -->
+    <section id="top_bar">
+    <nav class="navbar  navbar-dark bg-dark navbar-expand-sm" id= "nav-main" > 
+        <div class="container-fluid" >
+          	<div style="color: rgb(255, 255, 255);font-size:24px;margin-left: 20px; font-family: fantasy; ">NCUVoice</div>
+          
+          	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            	<span class="navbar-toggler-icon"></span>
+          	</button>
+          	<div class="collapse navbar-collapse" id="navbarSupportedContent"style="margin-left: 50px;">
+            	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              		<li class="nav-item">
+                		<a class="nav-link active" aria-current="page" href="home.html" style="background: rgb(86, 158, 84);">Home</a>
+              		</li>
+              		<li class="nav-item">
+                		<a class="nav-link active" href="mylist.html">My list</a>
+              		</li>
+             		 <!-- link 到上傳介面   -->
+              		<li class="nav-item">
+                		<a class="nav-link active" aria-current="page" href="upload.html">Upload</a>
+              		</li>
+		            <!-- link 到登入介面   -->
+		            <!-- Member controller   -->
+		            <li class="nav-item">
+		            	<a class="nav-link active" aria-current="page" href="">Log out</a>
+		            </li>
+		           	<!-- link 到結帳介面   -->
+		            <li class="nav-item">
+		            	<a class="nav-link active" href="checkout.html" style="border-radius: 30px;border: 1px solid #ffffff; margin-left: 10px;">Get Premium</a>
+		            </li>
+           		</ul>
+	            <form class="d-flex" style="position:absolute; right:30px;">
+	              	<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+	              	<button class="btn btn-outline-success" type="submit">Search</button>
+	            </form>
+          	</div>
+        </div>
+    </nav>
+    </section>
+    
+    <!-- 首頁歌曲   -->
+    <section id="song_perform">
+    	<div id="product_panel" class="row">
+      	</div>
+    </section>
+    
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript">   
+    //var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
+    
+    function getAllProduct() {
+      $.ajax({
+        type: "GET",
+        url: "api/song.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+        	var product_panel = '';
+        	
+        	$.each(response.response.data, function (){
+        		product_panel += addProduct(this);
+        	})
+        	
+        	$("#product_panel").append(product_panel);
+        	//setButtonFunction();
+        	//checkIfExistInCart();
+          }
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        }
+      });
+    }
+    $(document).ready(function() {
+    	getAllProduct();
+    });
+    
+    function addProduct(data) {
+    	let inner_html = '';
+    	inner_html += '<div class="card" style="width: 300px;margin-left: 100px;margin-top: 50px;">';
+   		inner_html += '<img src="upload/' + data.name + '.jpg" class="card-img-top">';
+   		inner_html += '<div class="card-body">';
+ 		inner_html += '<h5 class="card-title">'+ data.name + '</h5>';
+ 		inner_html += '<p class="card-text">'+ data.cover +'</p>';
+		inner_html += '<a href="#" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);"> Play</a>';
+		inner_html += '<a href="#" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);" onclick="addtoplaylist('+data.song_id+')">+ Add to My list</a>';
+		inner_html += '</div>';
+		inner_html += '</div>';
+    	
+		return inner_html;
+	}
+	
+	function addtoplaylist(id){
+		var data_object = {"song_id": id};
+		var data_string = JSON.stringify(data_object);
+
+		$.ajax({
+                type: "POST",
+                url: "api/playlist.do",
+                data: data_string,
+                crossDomain: true,
+                cache: false,
+                dataType: 'json',
+                timeout: 5000,
+                success: function (response) {
+                    $('#flashMessage').html(response.message);
+                    $('#flashMessage').show();
+                    if(response.status == 200){
+				    console.log(response);
+                    }
+                    },
+                    error: function () {
+					  alert("無法連線到伺服器！");
+					  console.log(response);
+                      }
+                });
+						
+	}
+    /*
+    function setButtonFunction() {
+    	$('button[name="add_cart"]').click(function () {
+    		var action = (this.id).split('_')[0];
+    		var destination = (this.id).split('_')[1];
+    		var id = (this.id).split('_')[2];
+    		addProductToCart(id, 1);
+        });
+    }
+    
+    function getCartDataFromClient() {
+    	let cart = JSON.parse(localStorage.getItem("client_cart_obj"));
+    	let amount = JSON.parse(localStorage.getItem("client_cart_amount"));
+    	cart = !cart ? new Array() : cart;
+    	amount = !amount ? new Array() : amount;
+    	return [cart, amount];
+    }
+    
+    function addProductToCart(id, amount) {
+    	if (!(client_cart_obj.includes(id))) {
+    		client_cart_obj.push(id);
+    		client_cart_amount.push(amount);
+    		updateCartDataToClent();
+    	}
+    	
+    	checkIfExistInCart();
+    }
+    
+    function updateCartDataToClent() {
+    	localStorage.setItem("client_cart_obj", JSON.stringify(client_cart_obj));
+    	localStorage.setItem("client_cart_amount", JSON.stringify(client_cart_amount));
+    }
+    
+    function checkIfExistInCart() {
+    	$('button[name="add_cart"]').each(function (){
+    		var action = (this.id).split('_')[0];
+    		var destination = (this.id).split('_')[1];
+    		var id = (this.id).split('_')[2];
+    		if (client_cart_obj.includes(id)) {
+    			setButtonState(this.id, false);
+    		}
+    		else {
+    			setButtonState(this.id, true);
+    		}
+    		
+        });
+    }
+    
+    function setButtonState(id, action) {
+    	if (!action) {
+    	    $('#' + id).prop('disabled', true);
+    	    $('#' + id).addClass('disabled');
+    	    $('#' + id).html('已加入');
+    	}
+    	else {
+    		$('#' + id).prop('disabled', false);
+    	    $('#' + id).removeClass('disabled');
+    	    $('#' + id).html('加入購物車');
+    	}
+    }
+	*/
+  </script>
+</body>
+</html>
