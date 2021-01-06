@@ -57,16 +57,17 @@
           <label for="member_password">Password</label>
           <input name="password" type="password" placeholder="Enter your Password"  id="member_password" required="required">          
           <br>
-          <input type="button" value="SIGN IN" id="signIN"">
+          <input type="button" value="SIGN IN" id="signIN">
           <button type="button" class="btn btn-light" onclick="location.href='SignUP.html';">SIGN UP</button>
         </div>
       </form>
       <!-- 事件處理 -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-      <script language="javascript" type="text/javascript">
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script language="javascript" type="text/javascript">
           $(function() {
             // set a event handler to the button
             $("#signIN").click(function () {
+       
               // retrieve form data
               var user_email = $('#member_email').val();
               var user_password = $('#member_password').val();
@@ -76,16 +77,13 @@
                 "email": user_email,
                 "password": user_password
               };
-
               // 將JSON轉成字串
               var data_string = JSON.stringify(data_object);
-
+              
               // send form data to the server side php script.
               $.ajax({
                 type: "POST",
                 url: "api/membermusiclogin.do", //要呼叫的do程式 不知道你們寫在哪
-                crossDomain: true,
-                cache: false,
                 data: data_string,
                 crossDomain: true,
                 cache: false,
@@ -95,7 +93,7 @@
                 	if(response.status == 200){
                 		console.log(response);
   
-                		location.href = "#";
+                		location.href = "home.html";
                 		
                 	}else{
                 		console.log(response);
@@ -109,8 +107,6 @@
         </script>
 
       </script>
-
-   
 	
 
 
@@ -123,10 +119,6 @@
 
 
     </section>
-
-    
-
-    
 
     
 

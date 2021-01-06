@@ -134,13 +134,23 @@
       let inner_html = '';
     	inner_html += '<tr>';
    		inner_html += '<td>'+data.playlist_MemID+'</td>';
-   		inner_html += '<td><a href="">'+data.playlist_SongID+'</a></td>';
+   		inner_html += '<td><a href="music-player.html" onclick= "playsong('+data.playlist_SongID+')">'+data.playlist_SongID+'</a></td>';
  		inner_html += '<td><input id="remove_bt" type="button" value="Remove" onclick="deleteSong('+data.playlist_SongID+',this)"></td>';
  		inner_html += '</tr>';
  		
     	
 		return inner_html;
     }
+    
+
+
+    function playsong(id){
+		console.log(id);
+		localStorage.clear();
+		localStorage.setItem('nowplay', id);
+    }
+    
+
 
     function deleteSong(id,rmbt) {
                     var check = window.confirm("確定刪除這首歌？");

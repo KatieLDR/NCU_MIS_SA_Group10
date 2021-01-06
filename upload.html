@@ -43,92 +43,189 @@
 
 <body>
     <!-- TOP BAR   -->
-    <section id="top_bar">
-    <nav class="navbar  navbar-dark bg-dark navbar-expand-sm" id= "nav-main" > 
-        <div class="container-fluid" >
-          	<div style="color: rgb(255, 255, 255);font-size:24px;margin-left: 20px; font-family: fantasy; ">NCUVoice</div>
-          
-          	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            	<span class="navbar-toggler-icon"></span>
-          	</button>
-          	<div class="collapse navbar-collapse" id="navbarSupportedContent"style="margin-left: 50px;">
-            	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              		<li class="nav-item">
-                		<a class="nav-link active" aria-current="page" href="home.html">Home</a>
-              		</li>
-              		<li class="nav-item">
-                		<a class="nav-link active" href="mylist.html">My list</a>
-              		</li>
-             		 <!-- link 到上傳介面   -->
-              		<li class="nav-item">
-                		<a class="nav-link active" aria-current="page" href="upload.html" style="background: rgb(86, 158, 84);"">Upload</a>
-              		</li>
-		            <!-- link 到登入介面   -->
-		            <!-- Member controller   -->
-		            <li class="nav-item">
-		            	<a class="nav-link active" aria-current="page" href="">Log out</a>
-		            </li>
-		           	<!-- link 到結帳介面   -->
-		            <li class="nav-item">
-		            	<a class="nav-link active" href="checkout.html" style="border-radius: 30px;border: 1px solid #ffffff; margin-left: 10px;">Get Premium</a>
-		            </li>
-           		</ul>
-          	</div>
-        </div>
-    </nav>
+       <section id="top_bar">
+		<nav class="navbar  navbar-dark bg-dark navbar-expand-sm" id= "nav-main" > 
+			<div class="container-fluid" >
+				<div class="navbar-brand">
+					<img src="statics/img/logo.png" width="80" height="80" alt="">
+					NCU Voice
+				</div>
+			  
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 50px;">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				  <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="home.html">Home</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link active" href="mylist.html">My list</a>
+				  </li>
+				  <!-- link 到上傳介面   -->
+				  <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="upload.html" style="background:rgb(178, 172, 189)";>Upload</a>
+				  </li>
+				 <!-- link 到登入介面   -->
+			
+				  <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="">Log out</a>
+				  </li>
+				  <!-- link 到結帳介面   -->
+				  <li class="nav-item">
+					<a class="nav-link active" href="checkout.html" style="border-radius: 30px;border: 1px solid #ffffff; margin-left: 10px;">Get Premium</a>
+				  </li>
+	  
+				</ul>
+				
+			  </div>
+			</div>
+		  </nav>
     </section>
-    
+ <section id="upload_form_n">>
     <!-- 上傳介面   -->
-    <section id="upload_form">
-		<form class="form" id="form">
-			<!-- <div style="display:none;"><input type="hidden" name="_method" value="POST"></div> -->
-			<div class="">
-                <label for="song_name">1.歌曲名：</label>
-				<input name="name" type="name" id="song_name" maxlength="10" required="required">
-            </div>
-			<div class="">
-                <label for="song_artist">2.歌手名：</label>
-				<input name="artist" type="artist" id="song_artist" maxlength="10">
-            </div>
-			<div class="">
-                <label for="song_cover">3.翻唱者：</label>
-				<input name="cover" type="cover" id="song_cover" maxlength="10" required="required">
-            </div>
-			<div class="">
-                <label for="song_album">4.專輯名：</label>
-				<input name="album" type="album" id="song_album" maxlength="10">
-            </div>
-			<div class="">
-                <label for="song_genre">5.選擇曲風：</label>
-				<input name="genre" type="radio" id="song_genre" value="jazz">Jazz
-                <input name="genre" type="radio" id="song_genre" value="classical">Classical
-                <input name="genre" type="radio" id="song_genre" value="pop">Pop
-                <input name="genre" type="radio" id="song_genre" value="eletronic">Eletronic
-            </div>
-			<div class="submit">
-				<input type="button" value="SUBMIT" id="submit">
-			<!-- <input type="reset" value="RESET" id="reset"> -->
-			</div>
-		</form>
-		<div class="">
-			<form method="post" action="/NCU_MIS_SA_Group10/FileUploadHandler" enctype="multipart/form-data">
-			<div class="">    
-			    <label for="song_pic">6.歌曲封面：</label>
-			    <input type="file" name="uploadFile" />
-				<br/>
-           		<label for="song_mp4">7.歌曲音檔：</label>
-			    <input type="file" name="uploadFile" />
-			</div>
-			<div class="submit">
-				<input type="submit" value="UPLOAD" />
-			</div>
-			</form>
-		</div>
-	</section>
+    <!-- multistep form -->
+    
+
+<div id="msform">
+
+	<!-- fieldsets -->
+	<fieldset>
+	<form class="form" id="form">
+	  <h2 class="fs-title">Step 1</h2>
+	  <h3 class="fs-subtitle">Key in Information</h3>
+	  <div class="">
+		<label for="song_name">1. 歌曲名稱 ：</label>
+		  <input type="name" name="name" placeholder="Song Name" id="song_name" maxlength="10" required="required">
+	  </div>
+	  <div class="">
+		<label for="song_artist">2. 歌手名稱 ：</label>
+		  <input type="artist" name="artist" placeholder="Song Artist" id="song_artist" maxlength="10">
+	  </div>
+	  <div class="">
+		<label for="song_cover">3. 翻唱歌手 ：</label>
+		<input type="cover" name="cover" placeholder="Song Cover" id="song_cover" maxlength="10" required="required">
+	  </div>
+	  <div class="">
+		<label for="song_album">4. 專輯名稱 ： </label>
+		<input name="album" type="album" placeholder="Alnum Name" id="song_album" maxlength="10">
+	</div>
+	  <div class="" >
+		<label for="song_genre">5. 曲風 ： </label>
+		<input name="genre" type="radio" id="song_genre" value="jazz">Jazz
+		<input name="genre" type="radio" id="song_genre" value="classical">Classical
+		<input name="genre" type="radio" id="song_genre" value="pop">Pop
+		<input name="genre" type="radio" id="song_genre" value="eletronic">Electronic
+	  </div>
+	  <input type="button" name="next" class="next action-button" value="SUBMIT" id="submit"> 
+	</form>
+	<form method="post" action="/NCU_MIS_SA_Group10/FileUploadHandler" enctype="multipart/form-data" target="id_iframe">
+		  <h2 class="fs-title">Step 2</h2>
+		  <h3 class="fs-subtitle">Upload Files</h3>
+		  <label for="song_pic">6. 歌曲封面：</label>
+		  <input type="file" name="uploadFile" />
+		  <label for="song_mp4">7. 歌曲音檔：</label>
+		  <input type="file" name="uploadFile" />
+		  
+		  <input type="submit" name="next" class="next action-button" value="UPLOAD" />
+	</form>
+	<iframe id="id_iframe" name="id_iframe" style="width:300px;height:60px;"></iframe>
+	</fieldset>
+</div>
+</section>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script type="text/javascript">  
+	
+	
+	//jQuery time
+	var current_fs, next_fs, previous_fs; //fieldsets
+	var left, opacity, scale; //fieldset properties which we will animate
+	var animating; //flag to prevent quick multi-click glitches
+	
+	$(".next").click(function(){
+		if(animating) return false;
+		animating = true;
+		
+		current_fs = $(this).parent();
+		next_fs = $(this).parent().next();
+		
+		//activate next step on progressbar using the index of next_fs
+		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+		
+		//show the next fieldset
+		next_fs.show(); 
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+			step: function(now, mx) {
+				//as the opacity of current_fs reduces to 0 - stored in "now"
+				//1. scale current_fs down to 80%
+				scale = 1 - (1 - now) * 0.2;
+				//2. bring next_fs from the right(50%)
+				left = (now * 50)+"%";
+				//3. increase opacity of next_fs to 1 as it moves in
+				opacity = 1 - now;
+				current_fs.css({
+	        'transform': 'scale('+scale+')',
+	        'position': 'absolute'
+	      });
+				next_fs.css({'left': left, 'opacity': opacity});
+			}, 
+			duration: 800, 
+			complete: function(){
+				current_fs.hide();
+				animating = false;
+			}, 
+			//this comes from the custom easing plugin
+			easing: 'easeInOutBack'
+		});
+	});
+	
+	$(".previous").click(function(){
+		if(animating) return false;
+		animating = true;
+		
+		current_fs = $(this).parent();
+		previous_fs = $(this).parent().prev();
+		
+		//de-activate current step on progressbar
+		$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+		
+		//show the previous fieldset
+		previous_fs.show(); 
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+			step: function(now, mx) {
+				//as the opacity of current_fs reduces to 0 - stored in "now"
+				//1. scale previous_fs from 80% to 100%
+				scale = 0.8 + (1 - now) * 0.2;
+				//2. take current_fs to the right(50%) - from 0%
+				left = ((1-now) * 50)+"%";
+				//3. increase opacity of previous_fs to 1 as it moves in
+				opacity = 1 - now;
+				current_fs.css({'left': left});
+				previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+			}, 
+			duration: 800, 
+			complete: function(){
+				current_fs.hide();
+				animating = false;
+			}, 
+			//this comes from the custom easing plugin
+			easing: 'easeInOutBack'
+		});
+	});
+	
+	$(".submit").click(function(){
+		return false;
+	})
+</script>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+        	getCookie();
             // 處理表單點擊事件
             var $form = $('#submit');
             $form.click(function() {
@@ -175,6 +272,28 @@
 	                }
 	            });
 	        }
+            function getCookie(){
+                // 發出POST的AJAX請求
+                $.ajax({
+                    type:"GET",
+                    url: "api/cookie.do",
+                    crossDomain: true,
+                    cache: false,
+                    dataType: 'json',
+                    timeout: 5000,
+                    success: function(response){
+                        if(response.status == 200){
+                            alert("獲取cookie成功");
+                            alert(response.response.data[0].mem_id);
+                        }
+                        console.log(response);
+                    },
+                    error: function(){
+                        alert("無法連線到伺服器!!!");
+                        console.log(response);
+                    }
+                });
+            }
 	    });
 	</script>
       

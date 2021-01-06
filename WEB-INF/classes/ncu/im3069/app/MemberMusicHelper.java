@@ -179,9 +179,9 @@ public class MemberMusicHelper {
      * @param id 會員編號
      * @return the JSON object 回傳SQL執行結果與該會員編號之會員資料
      */
-    public JSONObject getByID(String id) {
+    public JSONObject getByID(int id) {
         /** 新建一個 Member 物件之 m 變數，用於紀錄每一位查詢回之會員資料 */
-        Member m = null;
+    	MemberMusic m = null;
         /** 用於儲存所有檢索回之會員，以JSONArray方式儲存 */
         JSONArray jsa = new JSONArray();
         /** 記錄實際執行之SQL指令 */
@@ -197,11 +197,11 @@ public class MemberMusicHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT * FROM `sa_hw`.`member` WHERE `id` = ? LIMIT 1";
+            String sql = "SELECT * FROM `sa_hw`.`member` WHERE `mem_id` = ? LIMIT 1";
             
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql);
-            pres.setString(1, id);
+            pres.setInt(1, id);
             /** 執行查詢之SQL指令並記錄其回傳之資料 */
             rs = pres.executeQuery();
 
@@ -219,12 +219,12 @@ public class MemberMusicHelper {
                 int member_id = rs.getInt("mem_id");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
-                String password = rs.getString("password");
+                String password = rs.getString("pwd");
                 int login_times = rs.getInt("login_times");
-                String status = rs.getString("status");
+                int status = rs.getInt("status");
                 
                 /** 將每一筆會員資料產生一名新Member物件 */
-                m = new Member(member_id, email, password, name, login_times, status);
+                m = new MemberMusic(member_id, email, password, name, login_times, status);
                 /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
                 jsa.put(m.getData());
             }
@@ -256,7 +256,7 @@ public class MemberMusicHelper {
     }
     public int getEmailById(String in_email) {
         /** 新建一個 Member 物件之 m 變數，用於紀錄每一位查詢回之會員資料 */
-        Member m = null;
+    	MemberMusic m = null;
         /** 用於儲存所有檢索回之會員，以JSONArray方式儲存 */
         JSONArray jsa = new JSONArray();
         /** 記錄實際執行之SQL指令 */
@@ -672,7 +672,11 @@ public class MemberMusicHelper {
      * @param m 一名會員之Member物件
      * @param status 會員組別之字串（String）
      */
-    public void updateStatus(MemberMusic m, int status) {      
+
+    
+    
+    
+    public JSONObject updateStatus(MemberMusic m) {      
         /** 記錄實際執行之SQL指令 */
         String exexcute_sql = "";
         
@@ -680,20 +684,17 @@ public class MemberMusicHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "Update `sa_hw`.`member` SET `status` = ? WHERE `id` = ?";
+            String sql = "Update `sa_hw`.`member` SET status = ? WHERE mem_id = ?";
             /** 取得會員編號 */
             int id = m.getID();
             //如果0 改1
             int sts = m.getStatus();
-            if(sts == 0) {
-            	sts = 1;
-            }else if(sts == 1) {
-            	sts = 0;
-            }
+            
+            sts = 1;
             
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql);
-            pres.setInt(1, status);
+            pres.setInt(1, sts);
             pres.setInt(2, id);
             /** 執行更新之SQL指令 */
             pres.executeUpdate();
@@ -711,12 +712,8 @@ public class MemberMusicHelper {
             /** 關閉連線並釋放所有資料庫相關之資源 **/
             DBMgr.close(pres, conn);
         }
+        return null;
     }
-    
-    
-    
-    
-    
     
 
 }

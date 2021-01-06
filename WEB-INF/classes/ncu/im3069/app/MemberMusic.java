@@ -47,6 +47,10 @@ public class MemberMusic {
         this.login_times = login_times;
         this.status = status;
     }
+    public MemberMusic(int id) {
+        this.mem_id = id;
+
+   }
     
     public int getID() {
     	return this.mem_id;
@@ -115,6 +119,18 @@ public class MemberMusic {
         this.status = data.getInt("status");
     }
     
+    public JSONObject updateStatus() {
+        JSONObject data = new JSONObject();
+        /** 取得更新資料時間（即現在之時間）之分鐘數 */
+        
+       if(this.status == 0) {
+        data = mmh.updateStatus(this);
+       }
+        
+        return data;
+ }
+
+
     
 //    private void calcAccName() {
 //        /** 計算目前分鐘數為偶數或奇數 */

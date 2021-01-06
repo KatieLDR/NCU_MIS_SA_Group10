@@ -2,18 +2,17 @@ package ncu.im3069.controller;
 
 import java.io.*;
 
+
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import org.json.*;
-import ncu.im3069.app.Member;
-import ncu.im3069.app.MemberHelper;
+
 import ncu.im3069.tools.JsonReader;
 
 import org.json.JSONObject;
 
-import ncu.im3069.app.MemberHelper;
 import ncu.im3069.app.MemberMusic;
 import ncu.im3069.app.MemberMusicHelper;
 import ncu.im3069.tools.JsonReader;
@@ -85,37 +84,7 @@ public class MemberMusicController extends HttpServlet{
      * @throws IOException Signals that an I/O exception has occurred.
      */
     
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            /** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
-            JsonReader jsr = new JsonReader(request);
-            /** 若直接透過前端AJAX之data以key=value之字串方式進行傳遞參數，可以直接由此方法取回資料 */
-          //  String id = jsr.getParameter("mem_id");
-            String user_email = jsr.getParameter("email");
-            String user_password = jsr.getParameter("password");
-           
-            
-            if(mmh.canLogin(user_email, user_password)) {
-            	JSONObject query = mmh.getAll();
-                
-                /** 新建一個JSONObject用於將回傳之資料進行封裝 */
-                JSONObject resp = new JSONObject();
-                resp.put("status", "200");
-                resp.put("message", "成功! 帳號密碼皆正確");
-                resp.put("response", query);
-                
-                /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
-                jsr.response(resp, response);
-            }else {
-                /** 以字串組出JSON格式之資料 */
-                String resp = "{\"status\": \'400\', \"message\": \'帳號或是密碼錯了！\', \'response\': \'\'}";
-                /** 透過JsonReader物件回傳到前端（以字串方式） */
-                jsr.response(resp, response);
-            }
-            
 
-        }
-    
     /**
      * 處理Http Method請求PUT方法（更新）
      *
@@ -125,33 +94,59 @@ public class MemberMusicController extends HttpServlet{
      * @throws IOException Signals that an I/O exception has occurred.
      * 
      */
+//    public void doPut(HttpServletRequest request, HttpServletResponse response)
+//        throws ServletException, IOException {
+//        /** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
+//        JsonReader jsr = new JsonReader(request);
+//        JSONObject jso = jsr.getObject();
+//        
+//        /** 取出經解析到JSONObject之Request參數 */
+//        int id = jso.getInt("id");
+//        String email = jso.getString("email");
+//        String password = jso.getString("password");
+//        String name = jso.getString("name");
+//
+//        /** 透過傳入之參數，新建一個以這些參數之會員Member物件 */
+//        Member m = new Member(id, email, password, name);
+//        
+//        /** 透過Member物件的update()方法至資料庫更新該名會員資料，回傳之資料為JSONObject物件 */
+//        JSONObject data = m.update();
+//        
+//        /** 新建一個JSONObject用於將回傳之資料進行封裝 */
+//        JSONObject resp = new JSONObject();
+//        resp.put("status", "200");
+//        resp.put("message", "成功! 更新會員資料...");
+//        resp.put("response", data);
+//        
+//        /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
+//        jsr.response(resp, response);
+//    }
     public void doPut(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        /** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
-        JsonReader jsr = new JsonReader(request);
-        JSONObject jso = jsr.getObject();
-        
-        /** 取出經解析到JSONObject之Request參數 */
-        int id = jso.getInt("id");
-        String email = jso.getString("email");
-        String password = jso.getString("password");
-        String name = jso.getString("name");
+            throws ServletException, IOException {
+            /** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
+            JsonReader jsr = new JsonReader(request);
+            JSONObject jso = jsr.getObject();
+          
+            /** 取出經解析到JSONObject之Request參數 */
+            int id = jso.getInt("member_id");
+            MemberMusic m = new MemberMusic(id);
 
-        /** 透過傳入之參數，新建一個以這些參數之會員Member物件 */
-        Member m = new Member(id, email, password, name);
-        
-        /** 透過Member物件的update()方法至資料庫更新該名會員資料，回傳之資料為JSONObject物件 */
-        JSONObject data = m.update();
-        
-        /** 新建一個JSONObject用於將回傳之資料進行封裝 */
-        JSONObject resp = new JSONObject();
-        resp.put("status", "200");
-        resp.put("message", "成功! 更新會員資料...");
-        resp.put("response", data);
-        
-        /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
-        jsr.response(resp, response);
-    }
+            /** 透過傳入之參數，新建一個以這些參數之會員Member物件 *        
+            /** 透過Member物件的update()方法至資料庫更新該名會員資料，回傳之資料為JSONObject物件 */
+            JSONObject data = m.updateStatus();
+            
+            /** 新建一個JSONObject用於將回傳之資料進行封裝 */
+            JSONObject resp = new JSONObject();
+            resp.put("status", "200");
+            resp.put("message", "成功! 更新會員資料...");
+            resp.put("response", data);
+            
+            /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
+            jsr.response(resp, response);
+            
+            /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
+            jsr.response(resp, response);
+        }
 
     
 	

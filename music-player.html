@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar  navbar-dark bg-dark navbar-expand-sm" id= "nav-main">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">JupiterHsieh</a>
+          <a class="navbar-brand" href="home.html">NCUVoice</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -45,14 +45,14 @@
         <p id="logo"><i class="fa fa-music" aria-hidden="true"></i> music-player</p>
         <div class="box-left">
             <!--- song image-->
-            <img class="showSong current-song"  id="track_image" src="statics/img/Memories.jpg">
+            <img class="showSong current-song"  id="track_image">
 
         </div>
 
         <div class="box-right">
             
             <br>
-            <h5 class="word Sname">歌名</h5>
+            <h5 class="word Sname" >歌名</h5>
             <br>
             <h4 class="word Stitle" id="title"></h4> 
             <br>
@@ -95,7 +95,72 @@
 
 
     </div>
-    <script src="statics/js/music-player.js"></script>
+    <!-- <script src="statics/js/music-player.js"></script> -->
+    <script src="statics/js/jquery-3.4.1.min.js"> </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function play_current_song(){
+             var id =parseInt(localStorage.getItem("nowplay"));
+	           var data_object = {"song_id": id};
+             var data_string = JSON.stringify(data_object);
+             
+		         $.ajax({
+                type: "GET",
+                url: "api/song.do",
+                data: data_string,
+                crossDomain: true,
+                cache: false,
+                dataType: 'json',
+                timeout: 5000,
+                success: function (response) {
+                    if(response.status == 200){
+                       console.log(response);
+                       document.getElementById("title").innerHTML= response.name;
+                       document.getElementById("artist").innerHTML= response.artist;
+                       document.getElementById("info").innerHTML= response.album + response.duration+ response.genre;
+                    }
+                    },
+                    error: function () {
+					      alert("無法連線到伺服器！");
+					      console.log(response);
+                      }
+                });
+	
+             }  
+
+
+
+
+       
+        function add_to_playlist(){
+	           var id =parseInt(localStorage.getItem("nowplay"));
+	           var data_object = {"song_id": id};
+	           var data_string = JSON.stringify(data_object);
+
+		         $.ajax({
+                type: "POST",
+                url: "api/playlist.do",
+                data: data_string,
+                crossDomain: true,
+                cache: false,
+                dataType: 'json',
+                timeout: 5000,
+                success: function (response) {
+                    if(response.status == 200){
+				               console.log(response);
+                    }
+                    },
+                    error: function () {
+					      alert("無法連線到伺服器！");
+					      console.log(response);
+                      }
+                });
+	
+             }  
+             play_current_song();
+             
+
+  </script>
 
     
     

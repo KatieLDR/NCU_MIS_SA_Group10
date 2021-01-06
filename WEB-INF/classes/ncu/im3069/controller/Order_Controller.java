@@ -2,14 +2,16 @@ package ncu.im3069.controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.http.Cookie;
 
 import org.json.*;
 
-import ncu.im3069.app.MemberHelper;
 import ncu.im3069.app.Order_;
+import ncu.im3069.app.MemberMusic;
+import ncu.im3069.app.MemberMusicHelper;
 import ncu.im3069.app.OrderHelper_;
 import ncu.im3069.tools.JsonReader;
 
@@ -21,11 +23,9 @@ public class Order_Controller extends HttpServlet {
     /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-    /** ph，ProductHelper 之物件與 Product 相關之資料庫方法（Sigleton） */
-    private MemberHelper mh =  MemberHelper.getHelper();
-
     /** oh，OrderHelper 之物件與 order 相關之資料庫方法（Sigleton） */
 	private OrderHelper_ oh =  OrderHelper_.getHelper();
+	private MemberMusicHelper mmh =  MemberMusicHelper.getHelper();
 
     public Order_Controller() {
         super();
@@ -67,7 +67,10 @@ public class Order_Controller extends HttpServlet {
         
         /** 建立一個新的訂單物件 */
         Order_ od = new Order_(mem_id, approach);
-
+        MemberMusic m = new MemberMusic(mem_id);
+        
+        
+        JSONObject dataa = m.updateStatus();
         /** 透過 orderHelper 物件的 create() 方法新建一筆訂單至資料庫 */
         JSONObject data = oh.create(od);
 
@@ -76,6 +79,7 @@ public class Order_Controller extends HttpServlet {
         resp.put("status", "200");
         resp.put("message", "訂單新增成功！");
         resp.put("response", data);
+        resp.put("response", dataa);
 
         /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
         jsr.response(resp, response);

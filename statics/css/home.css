@@ -38,11 +38,11 @@
     }
     a:hover {
     text-decoration:underline;
-    background-color:#116e11;
+    background-color:rgb(178, 172, 189);
     color:rgb(255, 255, 255);
     }
     a:active {
     text-decoration:none;
-    background-color:gray;
+    background-color:rgb(143, 132, 236);
     color:#fafafa;
     }

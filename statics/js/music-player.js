@@ -18,7 +18,8 @@ let song_id;
 let timer;
 //let autoplay = 0;
 
-let index_no = 0;
+let no =parseInt(localStorage.getItem("nowplay"));
+let index_no = no - 1;
 let Playing_song = false;
 
 //create a audio Element
@@ -31,7 +32,7 @@ let All_song = [
 		song_id :0,
 		name: "Memories",
 		path: "music/Memories.mp3",
-		img: "img/Memories.jpg",
+		img: "statics/img/Memories.jpg",
 		singer: "Maroon 5",
 		info: "2019  |  你好  |  3:15"
 	  },
@@ -40,7 +41,7 @@ let All_song = [
 		song_id :1,
 		name: "Hymn For The Weekend",
 		path: "music/Hymn.mp3",
-		img: "img/Hymn.jpg",
+		img: "statics/img/Hymn.jpg",
 		singer: "ColdPlay",
 		info: "2016  | hi |  3:41"
 	  },
@@ -48,7 +49,7 @@ let All_song = [
 		song_id :2,
 		name: "See You Again",
 		path: "music/SYA.mp3",
-		img: "img/SYA.jpg",
+		img: "statics/img/SYA.jpg",
 		singer: "Wiz Khalifa ft. Charlie Puth",
 		info: "2000  |  你好  |  我是男的"
 	  },
@@ -57,7 +58,7 @@ let All_song = [
 		song_id :3,
 		name: "Downtown",
 		path: "music/Downtown.mp3",
-		img: "img/Downtown.jpg",
+		img: "statics/img/Downtown.jpg",
 		singer: "MACKLEMORE & RYAN LEWIS",
 		info: "2000  |  你好  |  我是男的"
 	  },
@@ -65,7 +66,7 @@ let All_song = [
 		song_id :4,
 		name: "Black and Yellow",
 		path: "music/BAY.mp3",
-		img: "img/BAY.jpg",
+		img: "statics/img/BAY.jpg",
 		singer: "Wiz Khalifa ft. Snoop Dogg, Juicy J",
 		info: "2000  |  你好  |  我是男的"
 	  },
@@ -86,15 +87,17 @@ function load_track(index_no){
 	clearInterval(timer);
 	reset_slider();
 
+
+
 	track.src = All_song[index_no].path;
-	title.innerHTML = All_song[index_no].name;	
+	 title.innerHTML = All_song[index_no].name;	
 	track_image.src = All_song[index_no].img;
-	artist.innerHTML = All_song[index_no].singer;
-	info.innerHTML =  All_song[index_no].info;
-    track.load();
+	 artist.innerHTML = All_song[index_no].singer;
+	 info.innerHTML =  All_song[index_no].info;
+     track.load();
 
 	timer = setInterval(range_slider ,1000);
-
+    console.log(index_no);
 
 }
 
@@ -129,7 +132,6 @@ function mute_sound(){
 function playsong(){
   Playing_song = true;
   track.play();
- // Playing_song = true;
   play.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
 }
 
@@ -217,8 +219,3 @@ function range_slider(){
 	    }
 	 }
 	 
-function add_to_playlist(){
-	var data={};
-	data["song_id"] =song_id; 
-	
-}

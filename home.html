@@ -62,7 +62,6 @@
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript">   
-    //var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
     
     function getAllProduct() {
       $.ajax({
@@ -90,10 +89,9 @@
         }
       });
     }
-    $(document).ready(function() {
-    	getAllProduct();
-    });
-    
+	getAllProduct();
+
+
     function addProduct(data) {
     	let inner_html = '';
     	inner_html += '<div class="card" style="width: 300px;margin-left: 100px;margin-top: 50px;">';
@@ -101,12 +99,18 @@
    		inner_html += '<div class="card-body">';
  		inner_html += '<h5 class="card-title">'+ data.name + '</h5>';
  		inner_html += '<p class="card-text">'+ data.cover +'</p>';
-		inner_html += '<a href="#" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);"> Play</a>';
+		inner_html += '<a href="music-player.html" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);" onclick="playsong('+data.song_id+')"> Play</a>';
 		inner_html += '<a href="#" class="btn btn-primary" style="background-color: rgb(86, 158, 84);border: 1px solid rgb(86, 158, 84);" onclick="addtoplaylist('+data.song_id+')">+ Add to My list</a>';
 		inner_html += '</div>';
 		inner_html += '</div>';
     	
 		return inner_html;
+	}
+
+	function playsong(id){
+		console.log(id);
+		localStorage.clear();
+		localStorage.setItem('nowplay', id);
 	}
 	
 	function addtoplaylist(id){
@@ -135,67 +139,7 @@
                 });
 						
 	}
-    /*
-    function setButtonFunction() {
-    	$('button[name="add_cart"]').click(function () {
-    		var action = (this.id).split('_')[0];
-    		var destination = (this.id).split('_')[1];
-    		var id = (this.id).split('_')[2];
-    		addProductToCart(id, 1);
-        });
-    }
-    
-    function getCartDataFromClient() {
-    	let cart = JSON.parse(localStorage.getItem("client_cart_obj"));
-    	let amount = JSON.parse(localStorage.getItem("client_cart_amount"));
-    	cart = !cart ? new Array() : cart;
-    	amount = !amount ? new Array() : amount;
-    	return [cart, amount];
-    }
-    
-    function addProductToCart(id, amount) {
-    	if (!(client_cart_obj.includes(id))) {
-    		client_cart_obj.push(id);
-    		client_cart_amount.push(amount);
-    		updateCartDataToClent();
-    	}
-    	
-    	checkIfExistInCart();
-    }
-    
-    function updateCartDataToClent() {
-    	localStorage.setItem("client_cart_obj", JSON.stringify(client_cart_obj));
-    	localStorage.setItem("client_cart_amount", JSON.stringify(client_cart_amount));
-    }
-    
-    function checkIfExistInCart() {
-    	$('button[name="add_cart"]').each(function (){
-    		var action = (this.id).split('_')[0];
-    		var destination = (this.id).split('_')[1];
-    		var id = (this.id).split('_')[2];
-    		if (client_cart_obj.includes(id)) {
-    			setButtonState(this.id, false);
-    		}
-    		else {
-    			setButtonState(this.id, true);
-    		}
-    		
-        });
-    }
-    
-    function setButtonState(id, action) {
-    	if (!action) {
-    	    $('#' + id).prop('disabled', true);
-    	    $('#' + id).addClass('disabled');
-    	    $('#' + id).html('已加入');
-    	}
-    	else {
-    		$('#' + id).prop('disabled', false);
-    	    $('#' + id).removeClass('disabled');
-    	    $('#' + id).html('加入購物車');
-    	}
-    }
-	*/
+
   </script>
 </body>
 </html>
