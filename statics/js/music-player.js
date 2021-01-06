@@ -69,7 +69,7 @@ let All_song = [
 		img: "statics/img/BAY.jpg",
 		singer: "Wiz Khalifa ft. Snoop Dogg, Juicy J",
 		info: "2000  |  你好  |  我是男的"
-	  },
+	  }
 
   
 

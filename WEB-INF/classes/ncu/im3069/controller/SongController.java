@@ -26,9 +26,13 @@ public class SongController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
         JsonReader jsr = new JsonReader(request);
+        JSONObject jso = jsr.getObject();
+        
         /** 若直接透過前端AJAX之data以key=value之字串方式進行傳遞參數，可以直接由此方法取回資料 */
-        String id_list = jsr.getParameter("id_list");
-
+        String id_list = jso.getString("id_list");
+        
+        
+        
         JSONObject resp = new JSONObject();
         /** 判斷該字串是否存在，若存在代表要取回購物車內產品之資料，否則代表要取回全部資料庫內產品之資料 */
         if (!id_list.isEmpty()) {

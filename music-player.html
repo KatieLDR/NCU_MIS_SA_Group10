@@ -100,11 +100,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript">
         function play_current_song(){
-             var id =parseInt(localStorage.getItem("nowplay"));
-	           var data_object = {"song_id": id};
+             var id = localStorage.getItem("nowplay");
+	           var data_object = {"id_list": id};
              var data_string = JSON.stringify(data_object);
+             alert(data_string);
              
-		         $.ajax({
+		            $.ajax({
                 type: "GET",
                 url: "api/song.do",
                 data: data_string,
@@ -115,18 +116,28 @@
                 success: function (response) {
                     if(response.status == 200){
                        console.log(response);
-                       document.getElementById("title").innerHTML= response.name;
-                       document.getElementById("artist").innerHTML= response.artist;
-                       document.getElementById("info").innerHTML= response.album + response.duration+ response.genre;
+                       
+                       var name = response.name;
+                       var cover = response.cover;
+                       var artist = response.artist;
+                       var album = response.album;
+                       var genre = response.genre
+                       
+                       alert(name);
+                       var pass_song = {'id':id,'name':name,'cover':cover,'artist':artist,'album':album,'genre':genre};
+                       
+
+
+
                     }
                     },
-                    error: function () {
+                error: function () {
 					      alert("無法連線到伺服器！");
-					      console.log(response);
+
                       }
                 });
 	
-             }  
+         }  
 
 
 
