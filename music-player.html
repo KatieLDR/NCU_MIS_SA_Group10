@@ -61,7 +61,7 @@
       <br>
 
 
-      <h5 class="word Sartist" id="artist">來自 </h4>
+      <h5 class="word Sartist" id="artist">來自 </h5>
         <br>
 
 
@@ -127,8 +127,8 @@
             var album = response.album;
             var genre = response.genre
 
-            title.innerHTML = name;
-            artist.innerHTML = artist;
+            $("#title").replaceWith("<h4 class='word Stitle' id='title'>"+response.name+"</h4>");
+            $("#artist").replaceWith("<h5 class='word Sartist' id='artist'>來自 "+response.artist+"</h4>");
 
 
 
